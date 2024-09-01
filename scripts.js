@@ -159,12 +159,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         searchWord(query);
     });
 
-    // Handle space key press
-    searchBox.addEventListener('keydown', (event) => {
-        if (event.code === 'Space' && searchBox.value.trim() === '') {
-            event.preventDefault();
+    // Handle space key press for both desktop and mobile
+    searchBox.addEventListener('input', () => {
+        const query = searchBox.value;
+
+        if (query.includes(' ') && query.trim().length === 0) {
             searchContainer.classList.add('error');
             ghostText.textContent = "";
+        } else {
+            searchContainer.classList.remove('error');
         }
     });
 });
